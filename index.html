@@ -461,12 +461,6 @@
         background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
         padding: 24px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow);
       }
-      .postal-modes { display: flex; flex-wrap: wrap; gap: 9px; }
-      .postal-fields { display: grid; gap: 14px; grid-template-columns: 1fr; }
-      @media (min-width: 720px) {
-        .postal-fields { grid-template-columns: 1fr 1fr; }
-        .postal-fields .field-wide { grid-column: 1 / -1; }
-      }
       .postal-field { display: flex; flex-direction: column; gap: 6px; }
       .postal-field label { font-family: "Sora", sans-serif; font-weight: 700; font-size: .92rem; }
       .postal-field input, .postal-field select {
@@ -475,8 +469,13 @@
         padding: 12px 14px; min-height: 48px; width: 100%;
       }
       .postal-field input:focus, .postal-field select:focus { outline: 2px solid var(--gold); outline-offset: 1px; border-color: var(--gold); }
-      .postal-hint { font-size: .88rem; color: var(--ink-soft); }
-      .postal-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+      .postal-search-row { display: flex; gap: 12px; align-items: stretch; }
+      .postal-search-row input { flex: 1 1 auto; min-width: 0; min-height: 54px; font-size: 1.05rem; }
+      .postal-search-row .btn { flex: none; min-height: 54px; padding: 0 28px; font-size: 1.05rem; }
+      @media (max-width: 560px) {
+        .postal-search-row { flex-direction: column; }
+        .postal-search-row .btn { width: 100%; }
+      }
       .postal-status { font-size: .95rem; font-weight: 700; color: var(--ink-soft); min-height: 1.4em; }
       .postal-status.error { color: var(--danger); }
       .postal-results { display: grid; gap: 12px; grid-template-columns: 1fr; }
@@ -1454,124 +1453,284 @@
         <div class="wrap">
           <div class="sec-head">
             <h2>Postal Code Finder — Worldwide</h2>
-            <p>Look up any place in the world two ways: enter a postal code to find the place it belongs to, or enter a city to find its postal code. Results come live from a free public postal database.</p>
+            <p>Look up any place in the world: type a postal code to find the place, or type a city name to find its postal code.</p>
           </div>
 
           <div class="postal-tool">
-            <div class="postal-modes" role="group" aria-label="Choose lookup type">
-              <button class="chip" type="button" id="modeByCode" aria-pressed="true">Find a place by postal code</button>
-              <button class="chip" type="button" id="modeByCity" aria-pressed="false">Find a postal code by city</button>
-            </div>
-
-            <div class="postal-fields">
-              <div class="postal-field field-wide">
-                <label for="pcCountry">Country</label>
-                <select id="pcCountry">
-                  <option value="AD">Andorra</option>
-                  <option value="AR">Argentina</option>
+            <div class="postal-field">
+              <label for="pcCountry">Country</label>
+              <select id="pcCountry">
+                  <option value="AF">Afghanistan</option>
+                  <option value="AX">Åland Islands</option>
+                  <option value="AL">Albania</option>
+                  <option value="DZ">Algeria</option>
                   <option value="AS">American Samoa</option>
-                  <option value="AT">Austria</option>
+                  <option value="AD">Andorra</option>
+                  <option value="AO">Angola</option>
+                  <option value="AI">Anguilla</option>
+                  <option value="AQ">Antarctica</option>
+                  <option value="AG">Antigua and Barbuda</option>
+                  <option value="AR">Argentina</option>
+                  <option value="AM">Armenia</option>
+                  <option value="AW">Aruba</option>
                   <option value="AU">Australia</option>
+                  <option value="AT">Austria</option>
+                  <option value="AZ">Azerbaijan</option>
+                  <option value="BS">Bahamas</option>
+                  <option value="BH">Bahrain</option>
                   <option value="BD">Bangladesh</option>
+                  <option value="BB">Barbados</option>
+                  <option value="BY">Belarus</option>
                   <option value="BE">Belgium</option>
-                  <option value="BG">Bulgaria</option>
+                  <option value="BZ">Belize</option>
+                  <option value="BJ">Benin</option>
+                  <option value="BM">Bermuda</option>
+                  <option value="BT">Bhutan</option>
+                  <option value="BO">Bolivia</option>
+                  <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+                  <option value="BA">Bosnia and Herzegovina</option>
+                  <option value="BW">Botswana</option>
+                  <option value="BV">Bouvet Island</option>
                   <option value="BR">Brazil</option>
+                  <option value="IO">British Indian Ocean Territory</option>
+                  <option value="BN">Brunei</option>
+                  <option value="BG">Bulgaria</option>
+                  <option value="BF">Burkina Faso</option>
+                  <option value="BI">Burundi</option>
+                  <option value="CV">Cabo Verde</option>
+                  <option value="KH">Cambodia</option>
+                  <option value="CM">Cameroon</option>
                   <option value="CA">Canada</option>
-                  <option value="CH">Switzerland</option>
-                  <option value="CZ">Czech Republic</option>
-                  <option value="DE">Germany</option>
-                  <option value="DK">Denmark</option>
-                  <option value="DO">Dominican Republic</option>
-                  <option value="ES">Spain</option>
-                  <option value="FI">Finland</option>
-                  <option value="FO">Faroe Islands</option>
-                  <option value="FR">France</option>
-                  <option value="GB">United Kingdom</option>
-                  <option value="GF">French Guiana</option>
-                  <option value="GG">Guernsey</option>
-                  <option value="GL">Greenland</option>
-                  <option value="GP">Guadeloupe</option>
-                  <option value="GT">Guatemala</option>
-                  <option value="GU">Guam</option>
-                  <option value="GY">Guyana</option>
+                  <option value="KY">Cayman Islands</option>
+                  <option value="CF">Central African Republic</option>
+                  <option value="TD">Chad</option>
+                  <option value="CL">Chile</option>
+                  <option value="CN">China</option>
+                  <option value="CX">Christmas Island</option>
+                  <option value="CC">Cocos (Keeling) Islands</option>
+                  <option value="CO">Colombia</option>
+                  <option value="KM">Comoros</option>
+                  <option value="CG">Congo</option>
+                  <option value="CD">Congo (Democratic Republic)</option>
+                  <option value="CK">Cook Islands</option>
+                  <option value="CR">Costa Rica</option>
+                  <option value="CI">Côte d'Ivoire</option>
                   <option value="HR">Croatia</option>
+                  <option value="CU">Cuba</option>
+                  <option value="CW">Curaçao</option>
+                  <option value="CY">Cyprus</option>
+                  <option value="CZ">Czechia</option>
+                  <option value="DK">Denmark</option>
+                  <option value="DJ">Djibouti</option>
+                  <option value="DM">Dominica</option>
+                  <option value="DO">Dominican Republic</option>
+                  <option value="EC">Ecuador</option>
+                  <option value="EG">Egypt</option>
+                  <option value="SV">El Salvador</option>
+                  <option value="GQ">Equatorial Guinea</option>
+                  <option value="ER">Eritrea</option>
+                  <option value="EE">Estonia</option>
+                  <option value="SZ">Eswatini</option>
+                  <option value="ET">Ethiopia</option>
+                  <option value="FK">Falkland Islands</option>
+                  <option value="FO">Faroe Islands</option>
+                  <option value="FJ">Fiji</option>
+                  <option value="FI">Finland</option>
+                  <option value="FR">France</option>
+                  <option value="GF">French Guiana</option>
+                  <option value="PF">French Polynesia</option>
+                  <option value="TF">French Southern Territories</option>
+                  <option value="GA">Gabon</option>
+                  <option value="GM">Gambia</option>
+                  <option value="GE">Georgia</option>
+                  <option value="DE">Germany</option>
+                  <option value="GH">Ghana</option>
+                  <option value="GI">Gibraltar</option>
+                  <option value="GR">Greece</option>
+                  <option value="GL">Greenland</option>
+                  <option value="GD">Grenada</option>
+                  <option value="GP">Guadeloupe</option>
+                  <option value="GU">Guam</option>
+                  <option value="GT">Guatemala</option>
+                  <option value="GG">Guernsey</option>
+                  <option value="GN">Guinea</option>
+                  <option value="GW">Guinea-Bissau</option>
+                  <option value="GY">Guyana</option>
+                  <option value="HT">Haiti</option>
+                  <option value="HM">Heard Island and McDonald Islands</option>
+                  <option value="HN">Honduras</option>
+                  <option value="HK">Hong Kong</option>
                   <option value="HU">Hungary</option>
-                  <option value="IM">Isle of Man</option>
-                  <option value="IN">India</option>
                   <option value="IS">Iceland</option>
+                  <option value="IN">India</option>
+                  <option value="ID">Indonesia</option>
+                  <option value="IR">Iran</option>
+                  <option value="IQ">Iraq</option>
+                  <option value="IE">Ireland</option>
+                  <option value="IM">Isle of Man</option>
+                  <option value="IL">Israel</option>
                   <option value="IT">Italy</option>
-                  <option value="JE">Jersey</option>
+                  <option value="JM">Jamaica</option>
                   <option value="JP">Japan</option>
+                  <option value="JE">Jersey</option>
+                  <option value="JO">Jordan</option>
+                  <option value="KZ">Kazakhstan</option>
+                  <option value="KE">Kenya</option>
+                  <option value="KI">Kiribati</option>
+                  <option value="KP">North Korea</option>
+                  <option value="KR">South Korea</option>
+                  <option value="KW">Kuwait</option>
+                  <option value="KG">Kyrgyzstan</option>
+                  <option value="LA">Laos</option>
+                  <option value="LV">Latvia</option>
+                  <option value="LB">Lebanon</option>
+                  <option value="LS">Lesotho</option>
+                  <option value="LR">Liberia</option>
+                  <option value="LY">Libya</option>
                   <option value="LI">Liechtenstein</option>
-                  <option value="LK">Sri Lanka</option>
                   <option value="LT">Lithuania</option>
                   <option value="LU">Luxembourg</option>
-                  <option value="MC">Monaco</option>
-                  <option value="MD">Moldova</option>
+                  <option value="MO">Macao</option>
+                  <option value="MG">Madagascar</option>
+                  <option value="MW">Malawi</option>
+                  <option value="MY">Malaysia</option>
+                  <option value="MV">Maldives</option>
+                  <option value="ML">Mali</option>
+                  <option value="MT">Malta</option>
                   <option value="MH">Marshall Islands</option>
+                  <option value="MQ">Martinique</option>
+                  <option value="MR">Mauritania</option>
+                  <option value="MU">Mauritius</option>
+                  <option value="YT">Mayotte</option>
+                  <option value="MX">Mexico</option>
+                  <option value="FM">Micronesia</option>
+                  <option value="MD">Moldova</option>
+                  <option value="MC">Monaco</option>
+                  <option value="MN">Mongolia</option>
+                  <option value="ME">Montenegro</option>
+                  <option value="MS">Montserrat</option>
+                  <option value="MA">Morocco</option>
+                  <option value="MZ">Mozambique</option>
+                  <option value="MM">Myanmar</option>
+                  <option value="NA">Namibia</option>
+                  <option value="NR">Nauru</option>
+                  <option value="NP">Nepal</option>
+                  <option value="NL">Netherlands</option>
+                  <option value="NC">New Caledonia</option>
+                  <option value="NZ">New Zealand</option>
+                  <option value="NI">Nicaragua</option>
+                  <option value="NE">Niger</option>
+                  <option value="NG">Nigeria</option>
+                  <option value="NU">Niue</option>
+                  <option value="NF">Norfolk Island</option>
                   <option value="MK">North Macedonia</option>
                   <option value="MP">Northern Mariana Islands</option>
-                  <option value="MQ">Martinique</option>
-                  <option value="MX">Mexico</option>
-                  <option value="MY">Malaysia</option>
-                  <option value="NL">Netherlands</option>
                   <option value="NO">Norway</option>
-                  <option value="NZ">New Zealand</option>
-                  <option value="PH">Philippines</option>
+                  <option value="OM">Oman</option>
                   <option value="PK">Pakistan</option>
+                  <option value="PW">Palau</option>
+                  <option value="PS">Palestine</option>
+                  <option value="PA">Panama</option>
+                  <option value="PG">Papua New Guinea</option>
+                  <option value="PY">Paraguay</option>
+                  <option value="PE">Peru</option>
+                  <option value="PH">Philippines</option>
+                  <option value="PN">Pitcairn</option>
                   <option value="PL">Poland</option>
-                  <option value="PM">Saint Pierre and Miquelon</option>
-                  <option value="PR">Puerto Rico</option>
                   <option value="PT">Portugal</option>
+                  <option value="PR">Puerto Rico</option>
+                  <option value="QA">Qatar</option>
                   <option value="RE">Réunion</option>
+                  <option value="RO">Romania</option>
                   <option value="RU">Russia</option>
-                  <option value="SE">Sweden</option>
-                  <option value="SI">Slovenia</option>
-                  <option value="SJ">Svalbard and Jan Mayen</option>
-                  <option value="SK">Slovakia</option>
+                  <option value="RW">Rwanda</option>
+                  <option value="BL">Saint Barthélemy</option>
+                  <option value="SH">Saint Helena</option>
+                  <option value="KN">Saint Kitts and Nevis</option>
+                  <option value="LC">Saint Lucia</option>
+                  <option value="MF">Saint Martin</option>
+                  <option value="PM">Saint Pierre and Miquelon</option>
+                  <option value="VC">Saint Vincent and the Grenadines</option>
+                  <option value="WS">Samoa</option>
                   <option value="SM">San Marino</option>
-                  <option value="TH">Thailand</option>
-                  <option value="TR">Turkey</option>
-                  <option value="US" selected>United States</option>
-                  <option value="VA">Vatican City</option>
-                  <option value="VI">U.S. Virgin Islands</option>
-                  <option value="YT">Mayotte</option>
+                  <option value="ST">Sao Tome and Principe</option>
+                  <option value="SA">Saudi Arabia</option>
+                  <option value="SN">Senegal</option>
+                  <option value="RS">Serbia</option>
+                  <option value="SC">Seychelles</option>
+                  <option value="SL">Sierra Leone</option>
+                  <option value="SG">Singapore</option>
+                  <option value="SX">Sint Maarten</option>
+                  <option value="SK">Slovakia</option>
+                  <option value="SI">Slovenia</option>
+                  <option value="SB">Solomon Islands</option>
+                  <option value="SO">Somalia</option>
                   <option value="ZA">South Africa</option>
-                </select>
-                <span class="postal-hint">Countries listed are the ones the free database covers.</span>
-              </div>
+                  <option value="GS">South Georgia</option>
+                  <option value="SS">South Sudan</option>
+                  <option value="ES">Spain</option>
+                  <option value="LK">Sri Lanka</option>
+                  <option value="SD">Sudan</option>
+                  <option value="SR">Suriname</option>
+                  <option value="SJ">Svalbard and Jan Mayen</option>
+                  <option value="SE">Sweden</option>
+                  <option value="CH">Switzerland</option>
+                  <option value="SY">Syria</option>
+                  <option value="TW">Taiwan</option>
+                  <option value="TJ">Tajikistan</option>
+                  <option value="TZ">Tanzania</option>
+                  <option value="TH">Thailand</option>
+                  <option value="TL">Timor-Leste</option>
+                  <option value="TG">Togo</option>
+                  <option value="TK">Tokelau</option>
+                  <option value="TO">Tonga</option>
+                  <option value="TT">Trinidad and Tobago</option>
+                  <option value="TN">Tunisia</option>
+                  <option value="TR">Turkey</option>
+                  <option value="TM">Turkmenistan</option>
+                  <option value="TC">Turks and Caicos Islands</option>
+                  <option value="TV">Tuvalu</option>
+                  <option value="UG">Uganda</option>
+                  <option value="UA">Ukraine</option>
+                  <option value="AE">United Arab Emirates</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="US">United States</option>
+                  <option value="UM">United States Minor Outlying Islands</option>
+                  <option value="UY">Uruguay</option>
+                  <option value="UZ">Uzbekistan</option>
+                  <option value="VU">Vanuatu</option>
+                  <option value="VA">Vatican City</option>
+                  <option value="VE">Venezuela</option>
+                  <option value="VN">Vietnam</option>
+                  <option value="VG">Virgin Islands (British)</option>
+                  <option value="VI">Virgin Islands (U.S.)</option>
+                  <option value="WF">Wallis and Futuna</option>
+                  <option value="EH">Western Sahara</option>
+                  <option value="YE">Yemen</option>
+                  <option value="ZM">Zambia</option>
+                  <option value="ZW">Zimbabwe</option>
+              </select>
+            </div>
 
-              <div class="postal-field field-wide" id="fieldCode">
-                <label for="pcCode">Postal code</label>
-                <input id="pcCode" type="text" inputmode="text" autocomplete="off" placeholder="e.g. 90210" />
-                <span class="postal-hint">Tip: for Canada use the first 3 characters (e.g. A0A); for the UK the outward part works too (e.g. SW1A).</span>
-              </div>
-
-              <div class="postal-field" id="fieldState" hidden>
-                <label for="pcState">State / province</label>
-                <input id="pcState" type="text" autocomplete="off" placeholder="e.g. CA or BE" />
-                <span class="postal-hint">City lookup needs the state/province — its abbreviation works best (CA for California, BE for Berlin).</span>
-              </div>
-              <div class="postal-field" id="fieldCity" hidden>
-                <label for="pcCity">City / place name</label>
-                <input id="pcCity" type="text" autocomplete="off" placeholder="e.g. Belmont" />
+            <div class="postal-field">
+              <label for="pcQuery">Postal code or city name</label>
+              <div class="postal-search-row">
+                <input id="pcQuery" type="text" inputmode="text" autocomplete="off" placeholder="Type a postal code OR a city name…" />
+                <button class="btn btn-gold" type="button" id="pcSearch">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                  Search
+                </button>
               </div>
             </div>
 
-            <div class="postal-actions">
-              <button class="btn btn-gold" type="button" id="pcSearch">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-                Search
-              </button>
-              <span class="postal-status" id="pcStatus" role="status" aria-live="polite"></span>
-            </div>
+            <span class="postal-status" id="pcStatus" role="status" aria-live="polite"></span>
 
             <div class="postal-results" id="pcResults" aria-live="polite"></div>
           </div>
 
           <p class="postal-note">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-            <span>Data: Zippopotam.us free postal database — coverage varies by country; not every town is listed.</span>
+            <span>Data: Zippopotam.us and © OpenStreetMap contributors. A few countries (e.g. UAE, Qatar) don't use postal codes at all.</span>
           </p>
         </div>
       </section>
@@ -2690,36 +2849,19 @@
       })();
     </script>
     <script>
-      /* Postal Code Finder — live lookups against the free Zippopotam.us API
-         (no key needed). Only API results are ever shown. */
+      /* Postal Code Finder — one simple search box. A code lookup tries
+         Zippopotam.us first, then OpenStreetMap Nominatim; a city lookup
+         uses Nominatim, with a reverse-geocode fallback for the city-centre
+         code. Only real API results are ever shown. */
       (function () {
         var countrySel = document.getElementById("pcCountry");
-        var codeInput = document.getElementById("pcCode");
-        var stateInput = document.getElementById("pcState");
-        var cityInput = document.getElementById("pcCity");
-        var fieldCode = document.getElementById("fieldCode");
-        var fieldState = document.getElementById("fieldState");
-        var fieldCity = document.getElementById("fieldCity");
-        var btnByCode = document.getElementById("modeByCode");
-        var btnByCity = document.getElementById("modeByCity");
+        var queryInput = document.getElementById("pcQuery");
         var searchBtn = document.getElementById("pcSearch");
         var status = document.getElementById("pcStatus");
         var results = document.getElementById("pcResults");
-        if (!countrySel || !searchBtn) return;
-        var mode = "code";
+        if (!countrySel || !queryInput || !searchBtn) return;
 
-        function setMode(next) {
-          mode = next;
-          btnByCode.setAttribute("aria-pressed", mode === "code" ? "true" : "false");
-          btnByCity.setAttribute("aria-pressed", mode === "city" ? "true" : "false");
-          fieldCode.hidden = mode !== "code";
-          fieldState.hidden = mode !== "city";
-          fieldCity.hidden = mode !== "city";
-          setStatus("");
-          results.innerHTML = "";
-        }
-        btnByCode.addEventListener("click", function () { setMode("code"); });
-        btnByCity.addEventListener("click", function () { setMode("city"); });
+        var NOT_FOUND = "No results found for that search. Some countries and areas don't use postal codes, or aren't in the free databases yet.";
 
         function setStatus(msg, isError) {
           status.textContent = msg;
@@ -2730,69 +2872,105 @@
             return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
           });
         }
-        function resultCard(code, place, state, stateAbbr, country) {
+        function selectedCountryName() {
+          var opt = countrySel.options[countrySel.selectedIndex];
+          return opt ? opt.textContent : "";
+        }
+        function resultCard(row) {
           var meta = [];
-          if (state) meta.push(esc(state) + (stateAbbr ? " (" + esc(stateAbbr) + ")" : ""));
-          if (country) meta.push(esc(country));
+          if (row.state) meta.push(esc(row.state));
+          meta.push(esc(selectedCountryName()));
           return '<div class="postal-result">' +
-            '<span class="pr-code">' + esc(code) + '</span>' +
-            '<span class="pr-place">' + esc(place) + '</span>' +
-            (meta.length ? '<span class="pr-meta">' + meta.join(" · ") + '</span>' : '') +
+            '<span class="pr-code">' + esc(row.code) + '</span>' +
+            '<span class="pr-place">' + esc(row.place) + '</span>' +
+            '<span class="pr-meta">' + meta.join(" · ") + '</span>' +
             '</div>';
+        }
+        function finish(rows) {
+          searchBtn.disabled = false;
+          if (rows && rows.length) {
+            var html = "";
+            rows.forEach(function (r) { html += resultCard(r); });
+            results.innerHTML = html;
+            setStatus(rows.length + (rows.length === 1 ? " result" : " results") + " found.");
+          } else {
+            results.innerHTML = "";
+            setStatus(NOT_FOUND, true);
+          }
+        }
+
+        function nominatimSearch(cc, q, isCode) {
+          var param = isCode ? "postalcode" : "city";
+          var url = "https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=10" +
+            "&countrycodes=" + encodeURIComponent(cc) + "&" + param + "=" + encodeURIComponent(q);
+          return fetch(url).then(function (res) {
+            return res.ok ? res.json() : [];
+          }).catch(function () { return []; });
+        }
+        function rowsFromNominatim(list, isCode, typedCode) {
+          var rows = [], seen = {};
+          (list || []).forEach(function (item) {
+            var a = item.address || {};
+            var code = a.postcode || (isCode ? typedCode : "");
+            if (!code || seen[code]) return;
+            seen[code] = true;
+            var place = a.city || a.town || a.village || a.suburb || a.county ||
+              (item.display_name ? item.display_name.split(",")[0] : "");
+            rows.push({ place: place, state: a.state || a.county || "", code: code });
+          });
+          return rows;
+        }
+        function nominatimLookup(cc, q, isCode) {
+          nominatimSearch(cc, q, isCode).then(function (list) {
+            var rows = rowsFromNominatim(list, isCode, q);
+            if (rows.length || isCode || !list || !list.length) { finish(rows); return; }
+            /* City results often carry no postcode on the city object itself:
+               reverse-geocode the first result's centre for its postcode. */
+            var first = list[0];
+            var url = "https://nominatim.openstreetmap.org/reverse?format=jsonv2" +
+              "&lat=" + encodeURIComponent(first.lat) + "&lon=" + encodeURIComponent(first.lon) +
+              "&zoom=18&addressdetails=1";
+            fetch(url).then(function (res) {
+              return res.ok ? res.json() : null;
+            }).then(function (data) {
+              var a = (data && data.address) || {};
+              if (a.postcode) {
+                finish([{ place: q, state: a.state || a.county || "", code: a.postcode }]);
+              } else {
+                finish([]);
+              }
+            }).catch(function () { finish([]); });
+          });
         }
 
         function search() {
-          var cc = countrySel.value;
-          var url, notFoundMsg;
-          if (mode === "code") {
-            var code = codeInput.value.trim();
-            if (!code) { setStatus("Please enter a postal code first.", true); codeInput.focus(); return; }
-            url = "https://api.zippopotam.us/" + encodeURIComponent(cc) + "/" + encodeURIComponent(code);
-            notFoundMsg = "No place found for that postal code. Check the code and country, and try again — some codes are not in the database.";
-          } else {
-            var state = stateInput.value.trim();
-            var city = cityInput.value.trim();
-            if (!state) { setStatus("City lookup needs the state or province too — please enter it (its abbreviation works best).", true); stateInput.focus(); return; }
-            if (!city) { setStatus("Please enter a city or place name.", true); cityInput.focus(); return; }
-            url = "https://api.zippopotam.us/" + encodeURIComponent(cc) + "/" +
-                  encodeURIComponent(state.toLowerCase()) + "/" + encodeURIComponent(city.toLowerCase());
-            notFoundMsg = "No postal code found for that city. City search is not supported for every country and needs the correct state/province — try the abbreviation (e.g. CA, BE), or search by postal code instead.";
-          }
+          var cc = String(countrySel.value || "").toLowerCase();
+          var q = queryInput.value.trim();
+          if (!q) { setStatus("Please type a postal code or a city name first.", true); queryInput.focus(); return; }
+          /* Auto-detect: contains a digit and is short -> postal code; words -> city. */
+          var isCode = /\d/.test(q) && q.length <= 12;
           setStatus("Searching…");
           results.innerHTML = "";
           searchBtn.disabled = true;
-          fetch(url).then(function (res) {
-            if (res.status === 404) { throw new Error("notfound"); }
-            if (!res.ok) { throw new Error("http"); }
+
+          if (!isCode) { nominatimLookup(cc, q, false); return; }
+
+          var zurl = "https://api.zippopotam.us/" + encodeURIComponent(cc) + "/" + encodeURIComponent(q);
+          fetch(zurl).then(function (res) {
+            if (!res.ok) { throw new Error("notfound"); }
             return res.json();
           }).then(function (data) {
             var places = (data && data.places) || [];
-            if (!places.length) { throw new Error("notfound"); }
-            var html = "";
-            if (mode === "code") {
-              places.forEach(function (p) {
-                html += resultCard(data["post code"], p["place name"], p["state"], p["state abbreviation"], data["country"]);
-              });
-              setStatus(places.length + (places.length === 1 ? " place" : " places") + " found for " + data["post code"] + ".");
-            } else {
-              places.forEach(function (p) {
-                html += resultCard(p["post code"], p["place name"], data["state"], data["state abbreviation"], data["country"]);
-              });
-              setStatus(places.length + (places.length === 1 ? " postal code" : " postal codes") + " found for " + (data["place name"] || cityInput.value.trim()) + ".");
-            }
-            results.innerHTML = html;
-          }).catch(function (err) {
-            results.innerHTML = "";
-            if (err && err.message === "notfound") {
-              setStatus(notFoundMsg, true);
-            } else {
-              setStatus("The lookup could not be completed — please check your connection and try again.", true);
-            }
-          }).then(function () { searchBtn.disabled = false; });
+            if (!places.length) { nominatimLookup(cc, q, true); return; }
+            var rows = places.map(function (p) {
+              return { place: p["place name"], state: p["state"] || "", code: data["post code"] };
+            });
+            finish(rows);
+          }).catch(function () { nominatimLookup(cc, q, true); });
         }
         searchBtn.addEventListener("click", search);
-        [codeInput, stateInput, cityInput].forEach(function (inp) {
-          inp.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); search(); } });
+        queryInput.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") { e.preventDefault(); search(); }
         });
       })();
     </script>
