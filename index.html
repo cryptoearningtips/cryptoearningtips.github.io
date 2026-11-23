@@ -706,6 +706,20 @@
       footer nav a { color: var(--ink-soft); font-weight: 700; text-decoration: none; padding: 6px 0; display: inline-block; }
       footer nav a:hover { color: var(--gold-deep); }
       footer .fineprint { margin-top: 16px; max-width: 78ch; }
+      .visitor-counter { margin-top: 22px; display: flex; justify-content: center; }
+      .visitor-counter-inner {
+        display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: center;
+        gap: 8px 10px; max-width: 100%;
+        background: var(--navy); color: var(--on-navy);
+        border: 1px solid var(--gold); border-radius: 999px;
+        padding: 8px 16px;
+      }
+      .visitor-counter-inner svg { color: var(--gold-bright); flex: none; }
+      .visitor-counter-label {
+        font-family: "Sora", sans-serif; font-weight: 700; font-size: .88rem; letter-spacing: .02em;
+        color: var(--on-navy); white-space: nowrap;
+      }
+      .visitor-counter img { height: 20px; width: auto; max-width: 100%; display: block; }
 
       @media (min-width: 720px) {
         .hero-grid { grid-template-columns: 1.5fr .9fr; }
@@ -3321,6 +3335,13 @@
           </nav>
         </div>
         <p class="fineprint">Not financial advice. Free-earning sites pay small amounts — cents per day — and crypto prices can fall as well as rise. Never pay a fee to unlock a withdrawal, and never share your seed phrase or password with anyone.</p>
+        <div class="visitor-counter">
+          <div class="visitor-counter-inner">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span class="visitor-counter-label">Visitors</span>
+            <img src="https://hits.sh/cryptoearningtips.github.io.svg" alt="Visitor counter" loading="lazy">
+          </div>
+        </div>
       </div>
     </footer>
 
